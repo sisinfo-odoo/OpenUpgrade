@@ -17,6 +17,8 @@
     </field>
   </record>
   <record id="business_conference" model="ir.attachment">
+    <field name="name">business_conference</field>
+    <field name="type">binary</field>
     <field name="public" eval="True"/>
   </record>
 </odoo>
