@@ -3,6 +3,7 @@
 
 import account_invoice
 import purchase
+import purchase_bps
 import res_company
 import res_config
 import res_partner
