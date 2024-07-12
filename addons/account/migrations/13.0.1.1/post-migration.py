@@ -347,7 +347,7 @@ def migration_invoice_moves(env):
             LEFT JOIN res_company rc ON ail.company_id = rc.id
         JOIN account_move am ON am.old_invoice_id = ai.id
         JOIN account_account aa ON ai.account_id = aa.id
-        WHERE aa.internal_type in ('receivable', 'payable')""",
+        WHERE aa.internal_type in ('receivable', 'payable') and (ai.move_id is not null or am.id is not null)""",
     )
     openupgrade.merge_models(env.cr, 'account.invoice.line', 'account.move.line', 'old_invoice_line_id')
     # Not Draft or Cancel Invoice Taxes
