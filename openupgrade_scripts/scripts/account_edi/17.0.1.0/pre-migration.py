@@ -9,14 +9,15 @@ def _remove_table_constraints(env):
         env,
         "account_edi",
         "account_edi_document",
-        "account_edi_document_unique_edi_document_by_move_by_format"
+        "account_edi_document_unique_edi_document_by_move_by_format",
     )
     openupgrade.delete_sql_constraint_safely(
         env,
         "account_edi",
         "account_edi_format",
-        "account_edi_format_unique_code"
+        "account_edi_format_unique_code",
     )
+
 
 @openupgrade.migrate()
 def migrate(env, version):
