@@ -160,7 +160,7 @@ def migration_invoice_moves(env):
         ai.source_email, ai.vendor_display_name, ai.cash_rounding_id,
         ai.create_uid, ai.create_date, ai.write_uid, ai.write_date)
         FROM account_invoice ai
-        WHERE am.id = ai.move_id AND ai.state not in ('draft', 'cancel')
+        WHERE am.id = ai.move_id AND ai.state not in ('draft', 'cancel', 'sice')
         """,
     )
     # Insert moves for draft or canceled invoices
@@ -201,7 +201,7 @@ def migration_invoice_moves(env):
         vendor_display_name, cash_rounding_id, id, create_uid, create_date,
         write_uid, write_date
         FROM account_invoice ai
-        WHERE ai.state in ('draft', 'cancel')""",
+        WHERE ai.state in ('draft', 'cancel', 'sice')""",
     )
     openupgrade.merge_models(env.cr, 'account.invoice', 'account.move', 'old_invoice_id')
     # Not Draft or Cancel Invoice Lines
@@ -215,7 +215,7 @@ def migration_invoice_moves(env):
             FROM (
                 SELECT aml.id as aml_id, array_agg(ail.id ORDER BY ail.id) as ails
                 FROM account_invoice_line ail
-                JOIN account_invoice ai ON ail.invoice_id = ai.id AND ai.state NOT IN ('draft', 'cancel')
+                JOIN account_invoice ai ON ail.invoice_id = ai.id AND ai.state NOT IN ('draft', 'cancel', 'sice')
                 JOIN account_move am ON ail.invoice_id = am.old_invoice_id
                 JOIN res_company rc ON ai.company_id = rc.id
                 JOIN account_move_line aml ON am.id = aml.move_id
@@ -279,7 +279,7 @@ def migration_invoice_moves(env):
         name = '(OLD GROUPED ITEM)' || aml.name,
         create_uid = ail.create_uid, create_date = ail.create_date
         FROM account_invoice_line ail
-            JOIN account_invoice ai ON ail.invoice_id = ai.id AND ai.state NOT IN ('draft', 'cancel')
+            JOIN account_invoice ai ON ail.invoice_id = ai.id AND ai.state NOT IN ('draft', 'cancel', 'sice')
             JOIN account_move am ON ail.invoice_id = am.old_invoice_id
         WHERE am.id = aml.move_id AND ail.company_id = aml.company_id AND ail.account_id = aml.account_id
             AND ail.partner_id = aml.partner_id
@@ -323,7 +323,7 @@ def migration_invoice_moves(env):
             JOIN account_invoice ai ON ail.invoice_id = ai.id
             JOIN account_move am ON am.old_invoice_id = ai.id
             LEFT JOIN res_company rc ON ail.company_id = rc.id
-        WHERE ail.aml_matched IS DISTINCT FROM TRUE AND ai.state NOT IN ('draft', 'cancel')""",
+        WHERE ail.aml_matched IS DISTINCT FROM TRUE AND ai.state NOT IN ('draft', 'cancel', 'sice')""",
     )
     # Draft or Cancel Invoice Lines
     openupgrade.logged_query(
@@ -343,7 +343,7 @@ def migration_invoice_moves(env):
         ail.create_uid, ail.create_date, ail.write_uid, ail.write_date, am.state, am.name,
         0.0, 0.0, 0.0
         FROM account_invoice_line ail
-            JOIN account_invoice ai ON ail.invoice_id = ai.id AND ai.state IN ('draft', 'cancel')
+            JOIN account_invoice ai ON ail.invoice_id = ai.id AND ai.state IN ('draft', 'cancel', 'sice')
             LEFT JOIN res_company rc ON ail.company_id = rc.id
         JOIN account_move am ON am.old_invoice_id = ai.id
         JOIN account_account aa ON ai.account_id = aa.id
@@ -358,7 +358,7 @@ def migration_invoice_moves(env):
         old_invoice_tax_id = ait.id,
         create_uid = ait.create_uid, create_date = ait.create_date
         FROM account_invoice_tax ait
-            JOIN account_invoice ai ON ait.invoice_id = ai.id AND ai.state NOT IN ('draft', 'cancel')
+            JOIN account_invoice ai ON ait.invoice_id = ai.id AND ai.state NOT IN ('draft', 'cancel', 'sice')
             JOIN account_move am ON ait.invoice_id = am.old_invoice_id
         WHERE am.id = aml.move_id AND ait.company_id = aml.company_id AND ait.account_id = aml.account_id
             AND ait.tax_id = aml.tax_line_id
@@ -379,7 +379,7 @@ def migration_invoice_moves(env):
         ait.id, TRUE, COALESCE(am.state, ai.state), 1.0, ai.commercial_partner_id, COALESCE(ai.date, ai.date_invoice),
         ait.create_uid, ait.create_date, ait.write_uid, ait.write_date, am.name, 0.0, 0.0, 0.0
         FROM account_invoice_tax ait
-        JOIN account_invoice ai ON ait.invoice_id = ai.id AND ai.state IN ('draft', 'cancel')
+        JOIN account_invoice ai ON ait.invoice_id = ai.id AND ai.state IN ('draft', 'cancel', 'sice')
         LEFT JOIN account_move am ON am.old_invoice_id = ai.id
         WHERE COALESCE(ai.move_id, am.id) IS NOT NULL""",
     )
