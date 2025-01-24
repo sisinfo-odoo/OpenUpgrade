@@ -58,3 +58,5 @@ merged_models = {
     # odoo
     # OCA/...
 }
+
+renamed_modules.update({"account_asset_management": "om_account_asset"})
