@@ -9,6 +9,7 @@ renamed_modules = {
     "website_sale_delivery_mondialrelay": "website_sale_mondialrelay",
     # odoo/enterprise
     # OCA/...
+    # BPS/...
 }
 
 # Merged modules contain a mapping from old module names to other,
@@ -45,18 +46,20 @@ merged_modules = {
     "web_listview_range_select": "web",
     "web_pwa_oca": "web",
     # OCA/...
+    # BPS/...
 }
 
 # only used here for upgrade_analysis
 renamed_models = {
     # odoo
     # OCA/...
+    # BPS/...
 }
 
 # only used here for upgrade_analysis
 merged_models = {
     # odoo
     # OCA/...
+    # BPS/...
+    "account_asset_management": "om_account_asset"
 }
-
-renamed_modules.update({"account_asset_management": "om_account_asset"})
