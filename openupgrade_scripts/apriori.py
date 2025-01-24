@@ -10,6 +10,7 @@ renamed_modules = {
     # odoo/enterprise
     # OCA/...
     # BPS/...
+    "account_asset_management": "om_account_asset"
 }
 
 # Merged modules contain a mapping from old module names to other,
@@ -61,5 +62,4 @@ merged_models = {
     # odoo
     # OCA/...
     # BPS/...
-    "account_asset_management": "om_account_asset"
 }
