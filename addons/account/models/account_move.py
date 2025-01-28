@@ -997,6 +997,7 @@ class AccountMove(models.Model):
         :param recompute_all_taxes: Force the computation of taxes. If set to False, the computation will be done
                                     or not depending on the field 'recompute_tax_line' in lines.
         '''
+        pass
         for invoice in self:
             # Dispatch lines and pre-compute some aggregated values like taxes.
             expected_tax_rep_lines = set()
