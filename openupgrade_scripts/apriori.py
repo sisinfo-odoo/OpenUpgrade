@@ -22,6 +22,7 @@ merged_modules = {
     "association": "membership",
     "l10n_de_skr03": "l10n_de",
     "l10n_de_skr04": "l10n_de",
+    "l10n_generic_coa": "account",
     "l10n_hr_euro": "l10n_hr",
     "l10n_in_tcs_tds": "l10n_in",
     "l10n_in_upi": "l10n_in",
@@ -42,6 +43,8 @@ merged_modules = {
     "l10n_es_irnr_sii": "l10n_es_aeat_sii_oca",
     # OCA/purchase-workflow
     "purchase_discount": "purchase",
+    # OCA/stock-logistics-warehouse
+    "stock_lot_filter_available": "stock",
     # OCA/web
     "web_advanced_search": "web",
     "web_listview_range_select": "web",
