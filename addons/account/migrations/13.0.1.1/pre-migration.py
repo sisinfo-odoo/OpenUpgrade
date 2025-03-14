@@ -258,22 +258,22 @@ def add_helper_invoice_move_rel(env):
         WHERE ai.move_id = am.id
         """,
     )
-    openupgrade.logged_query(
-        env.cr, """
-        UPDATE account_move am
-        SET old_invoice_id = aml.invoice_id
-        FROM account_move_line aml
-        WHERE aml.move_id = am.id AND am.old_invoice_id IS NULL
-        """,
-    )
-    openupgrade.logged_query(
-        env.cr, """
-        UPDATE account_invoice ai
-        SET move_id = am.id
-        FROM account_move am
-        WHERE am.old_invoice_id = ai.id AND ai.move_id IS NULL
-        """,
-    )
+    # openupgrade.logged_query(
+    #     env.cr, """
+    #     UPDATE account_move am
+    #     SET old_invoice_id = aml.invoice_id
+    #     FROM account_move_line aml
+    #     WHERE aml.move_id = am.id AND am.old_invoice_id IS NULL
+    #     """,
+    # )
+    # openupgrade.logged_query(
+    #     env.cr, """
+    #     UPDATE account_invoice ai
+    #     SET move_id = am.id
+    #     FROM account_move am
+    #     WHERE am.old_invoice_id = ai.id AND ai.move_id IS NULL
+    #     """,
+    # )
     openupgrade.logged_query(
         env.cr, """
         ALTER TABLE account_move_line
