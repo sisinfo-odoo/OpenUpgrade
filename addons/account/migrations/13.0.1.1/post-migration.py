@@ -203,7 +203,9 @@ def migration_invoice_moves(env):
         FROM account_invoice ai
         WHERE ai.state in ('draft', 'cancel', 'sice')""",
     )
-    openupgrade.merge_models(env.cr, 'account.invoice', 'account.move', 'old_invoice_id')
+    # MVAR Se comenta el merge_models de account.invoice a account.move porque queremos mantener la red social,
+    # adjuntos, etc. de account.invoice y no moverlo a account.move
+    # openupgrade.merge_models(env.cr, 'account.invoice', 'account.move', 'old_invoice_id')
     # Not Draft or Cancel Invoice Lines
     # 1st: update the ungrouped ones
     openupgrade.logged_query(env.cr, "ALTER TABLE account_invoice_line ADD aml_matched BOOLEAN")
