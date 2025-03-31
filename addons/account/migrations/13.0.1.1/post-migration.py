@@ -203,7 +203,7 @@ def migration_invoice_moves(env):
         FROM account_invoice ai
         WHERE ai.state in ('draft', 'cancel', 'sice')""",
     )
-    openupgrade.merge_models(env.cr, 'account.invoice', 'account.move', 'old_invoice_id')
+    # openupgrade.merge_models(env.cr, 'account.invoice', 'account.move', 'old_invoice_id')
     # Not Draft or Cancel Invoice Lines
     # 1st: update the ungrouped ones
     openupgrade.logged_query(env.cr, "ALTER TABLE account_invoice_line ADD aml_matched BOOLEAN")
