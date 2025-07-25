@@ -58,6 +58,10 @@ renamed_modules = {
     "l10n_it_account_balance_eu": "l10n_it_financial_statement_eu",
     "l10n_it_ricevute_bancarie": "l10n_it_riba",
     # OCA/...
+    # SISINFO_UY
+    "electronic-invoice": "electronic_invoice",
+    "account-payment-custom": "account_check_custom",
+    "formularios-dgi": "formularios_dgi",
 }
 
 # Merged modules contain a mapping from old module names to other,
